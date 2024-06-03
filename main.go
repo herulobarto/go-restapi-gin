@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/herulobarto/go-restapi-gin/controllers/productcontroller"
 	"github.com/herulobarto/go-restapi-gin/models"
 )
 
@@ -13,7 +14,7 @@ func main() {
 	r.GET("/api/product/:id", productcontroller.Show)
 	r.POST("/api/product", productcontroller.Create)
 	r.PUT("/api/product/:id", productcontroller.Update)
-	r.DELETE("/api/product", productcontroller.Index)
+	r.DELETE("/api/product", productcontroller.Delete)
 
 	r.Run()
 }
