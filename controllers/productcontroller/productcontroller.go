@@ -53,6 +53,20 @@ func Create(c *gin.Context) {
 
 func Update(c *gin.Context) {
 
+	var product models.Product
+	id := c.Param("id")
+
+	if err := c.ShouldBindJSON(&product); err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
+	}
+
+	if models.DB.Model(&product).Where("id = ?", id).Updates(&product).RowsAffected == 0 {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Tidak dapat mengupdate produk"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Data berhasil diperbarui"})
 }
 
 func Delete(c *gin.Context) {
